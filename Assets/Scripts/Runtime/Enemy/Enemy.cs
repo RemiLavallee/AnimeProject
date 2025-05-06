@@ -7,16 +7,16 @@ namespace Runtime.Enemy
         [SerializeField] private EnemyScriptableObject enemyData;
         [SerializeField] private GameObject healthBar;
         private float _currentDamage;
-        public float CurrentHealth { get; private set; }
-        public float MaxHealth { get; private set; }
+        public float currentHealth;
+        public float maxHealth;
         public EnemyIdleState idleState;
         public EnemyChaseState chaseState;
         public EnemyPatrolState patrolState;
         
         private void Awake()
         {
-            CurrentHealth = enemyData.CurrentHealth;
-            MaxHealth = enemyData.MaxHealth;
+            currentHealth = enemyData.CurrentHealth;
+            maxHealth = enemyData.MaxHealth;
             _currentDamage = enemyData.Damage;
         }
 

@@ -25,7 +25,7 @@ namespace Runtime.Enemy
                 fillImage.enabled = true;
             }
             
-            var fillValue = enemyData.CurrentHealth / enemyData.MaxHealth;
+            var fillValue = enemyData.currentHealth / enemyData.maxHealth;
             _slider.value = fillValue;
         }
     }

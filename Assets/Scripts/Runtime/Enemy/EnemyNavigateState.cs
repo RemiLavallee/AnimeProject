@@ -8,6 +8,7 @@ namespace Runtime.Enemy
         public float speed = 1f;
         public float threshold = 0.1f;
         public State anim;
+        public float rotationSpeed = 1f;
 
 
         public override void Enter()
@@ -22,13 +23,25 @@ namespace Runtime.Enemy
                 IsComplete = true;
             }
             
-            // stateMachineCore.transform.localScale = new Vector3(Mathf.Sign(Rb.linearVelocity.x), 1f, 1f);
+            FaceToDestination();
         }
 
         protected override void FixedDo()
         {
             var direction = (destination - stateMachineCore.transform.position).normalized;
             Rb.linearVelocity = new Vector3(direction.x * speed, Rb.linearVelocity.y , direction.z * speed);
+        }
+
+        private void FaceToDestination()
+        {
+            var direction = destination - stateMachineCore.transform.position;
+            direction.y = 0;
+            
+            if (direction.sqrMagnitude > 0.01f)
+            {
+                var targetRotation = Quaternion.LookRotation(direction.normalized);
+                stateMachineCore.transform.rotation = Quaternion.Slerp(stateMachineCore.transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+            }
         }
     }
 }

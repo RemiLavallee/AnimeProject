@@ -8,6 +8,7 @@ namespace Runtime.Enemy
         public EnemyIdleState idle;
         public Transform point1;
         public Transform point2;
+        public float duration;
         
         public override void Enter()
         {
@@ -27,10 +28,7 @@ namespace Runtime.Enemy
             
             Set(navigate, true);
         }
-
-        public override void Exit() { }
-
-
+        
         public override void Do()
         {
             if (stateMachine.state == navigate)
@@ -43,14 +41,11 @@ namespace Runtime.Enemy
             }
             else
             {
-                if (stateMachine.state.time > 1)
+                if (stateMachine.state.time > duration)
                 {
                     GoToNextDestination();
                 }
             }
         }
-
-        protected override void FixedDo() { }
-
     }
 }
