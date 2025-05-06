@@ -1,10 +1,14 @@
+using UnityEngine;
+
 namespace Runtime.Enemy
 {
     public class EnemyChaseState : State
     {
+        [SerializeField] private AnimationClip anim;
+        
         public override void Enter()
         {
-            base.Enter();
+            Animator.Play(anim.name);
         }
 
         public override void Exit()
@@ -17,7 +21,7 @@ namespace Runtime.Enemy
             base.Do();
         }
 
-        public override void FixedDo()
+        protected override void FixedDo()
         {
             base.FixedDo();
         }

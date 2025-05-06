@@ -2,22 +2,16 @@ using UnityEngine;
 
 namespace Runtime.Enemy
 {
-    public class Enemy : MonoBehaviour
+    public class Enemy : StateMachineCore
     {
         [SerializeField] private EnemyScriptableObject enemyData;
         [SerializeField] private GameObject healthBar;
         private float _currentDamage;
         public float CurrentHealth { get; private set; }
         public float MaxHealth { get; private set; }
-        public bool IsAggroed { get; private set; }
-        public bool IsInStrikingDistance { get; private set; }
-        private State state;
         public EnemyIdleState idleState;
         public EnemyChaseState chaseState;
         public EnemyPatrolState patrolState;
-        private Animator animator;
-        private Rigidbody rb;
-        
         
         private void Awake()
         {
@@ -28,26 +22,18 @@ namespace Runtime.Enemy
 
         private void Start()
         {
-            idleState.Setup(rb, animator);
-            chaseState.Setup(rb, animator);
-            patrolState.Setup(rb, animator);
-            state = idleState;
+            SetupInstances();
+            StateMachine.Set(idleState);
         }
 
         private void Update()
         {
-            if (state.IsComplete)
-            {
-                SelectState();
-            }
-            
-            state.Do();
+            StateMachine.State.DoBranch();
         }
 
-        private void SelectState()
+        private void FixedUpdate()
         {
-            // state = idleState;
-            state.Enter();
+            StateMachine.State.FixedDoBranch();
         }
         
         private void TakeDamage(float damage)
@@ -56,11 +42,11 @@ namespace Runtime.Enemy
 
             if (_currentDamage <= 0)
             {
-                onKilled();
+                OnKilled();
             }
         }
 
-        private void onKilled()
+        private void OnKilled()
         {
             // Drop
         }

@@ -1,10 +1,9 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Runtime.Enemy
 {
-    public class EnemyStatutBar : MonoBehaviour
+    public class EnemyStatusBar : MonoBehaviour
     {
         [SerializeField] private Enemy enemyData;
         [SerializeField] private Image fillImage;
