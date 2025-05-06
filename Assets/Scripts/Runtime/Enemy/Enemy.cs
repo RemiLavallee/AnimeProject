@@ -23,17 +23,17 @@ namespace Runtime.Enemy
         private void Start()
         {
             SetupInstances();
-            StateMachine.Set(idleState);
+            StateMachine.Set(patrolState);
         }
 
         private void Update()
         {
-            StateMachine.State.DoBranch();
+            StateMachine.state.DoBranch();
         }
 
         private void FixedUpdate()
         {
-            StateMachine.State.FixedDoBranch();
+            StateMachine.state.FixedDoBranch();
         }
         
         private void TakeDamage(float damage)

@@ -4,8 +4,8 @@ namespace Runtime.Enemy
 {
     public class StateMachineCore : MonoBehaviour
     {
-        public Animator Animator { get; private set; }
-        public Rigidbody Rb { get; private set; }
+        public Animator animator;
+        public Rigidbody rb;
         protected StateMachine StateMachine;
 
         public void SetupInstances()

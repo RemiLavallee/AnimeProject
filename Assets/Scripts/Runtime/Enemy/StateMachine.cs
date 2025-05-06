@@ -2,16 +2,16 @@ namespace Runtime.Enemy
 {
     public class StateMachine
     {
-        public State State { get; private set; }
+        public State state;
 
         public void Set(State newState, bool forceReset = false)
         {
-            if (State != newState || forceReset)
+            if (state != newState || forceReset)
             {
-                State?.Exit();
-                State = newState;
-                State.Initialize();
-                State.Enter();
+                state?.Exit();
+                state = newState;
+                state.Initialize(state.stateMachine);
+                state.Enter();
             }
         }
     }

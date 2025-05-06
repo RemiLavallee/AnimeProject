@@ -7,12 +7,12 @@ namespace Runtime.Enemy
         public bool IsComplete { get; protected set; }
         private float _startTime;
         public float time => Time.time - _startTime;
-        protected Animator Animator => stateMachineCore.Animator;
-        protected Rigidbody Rb => stateMachineCore.Rb;
-        public StateMachineCore stateMachineCore;
+        protected Animator Animator => stateMachineCore.animator;
+        protected Rigidbody Rb => stateMachineCore.rb;
+        protected StateMachineCore stateMachineCore;
         public StateMachine stateMachine;
-        public State parent;
-        public State state => stateMachine.State;
+        protected StateMachine parent;
+        public State state => stateMachine.state;
     
         public virtual void Enter() {}
         public virtual void Exit() {}
@@ -38,11 +38,13 @@ namespace Runtime.Enemy
         
         public void SetCore(StateMachineCore core)
         {
+            stateMachine = new StateMachine();
             this.stateMachineCore = core;
         }
 
-        public void Initialize()
+        public void Initialize(StateMachine stateParent)
         {
+            this.parent = stateParent;
             IsComplete = false;
             _startTime = Time.time;
         }

@@ -4,7 +4,7 @@ namespace Runtime.Enemy
 {
     public class EnemyIdleState : State
     {
-        [SerializeField] private AnimationClip anim;
+        public AnimationClip anim;
         
         public override void Enter()
         {

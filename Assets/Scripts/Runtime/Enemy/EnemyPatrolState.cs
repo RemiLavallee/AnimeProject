@@ -4,23 +4,27 @@ namespace Runtime.Enemy
 {
     public class EnemyPatrolState : State
     {
-        [SerializeField] private AnimationClip anim;
-
-        public State navigate;
+        public EnemyNavigateState navigate;
         public EnemyIdleState idle;
         public Transform point1;
         public Transform point2;
         
         public override void Enter()
         {
-            Animator.Play(anim.name);
             GoToNextDestination();
         }
 
         private void GoToNextDestination()
         {
-            var randomSpot = Random.Range(point1.position.x, point2.position.x);
-            // navigate.destination = new Vector2(randomSpot, stateMachineCore.transform.position.y);
+            if (navigate.destination == point1.position)
+            {
+                navigate.destination = point2.position;
+            }
+            else
+            {
+                navigate.destination = point1.position;
+            }
+            
             Set(navigate, true);
         }
 
@@ -29,14 +33,17 @@ namespace Runtime.Enemy
 
         public override void Do()
         {
-            if (stateMachine.State == navigate)
+            if (stateMachine.state == navigate)
             {
-                Set(idle, true);
-                Rb.linearVelocity = new Vector3(0, Rb.linearVelocity.y, Rb.linearVelocity.z);
+                if (navigate.IsComplete)
+                {
+                    Set(idle, true);
+                    Rb.linearVelocity = new Vector3(0, Rb.linearVelocity.y, 0);
+                }
             }
             else
             {
-                if (stateMachine.State.time > 1)
+                if (stateMachine.state.time > 1)
                 {
                     GoToNextDestination();
                 }
