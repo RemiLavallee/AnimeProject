@@ -5,6 +5,7 @@ namespace Runtime.Enemy
     public class EnemyPatrolState : State
     {
         public EnemyNavigateState navigate;
+        public EnemyChaseState chase;
         public EnemyIdleState idle;
         public Transform point1;
         public Transform point2;
@@ -31,21 +32,31 @@ namespace Runtime.Enemy
         
         public override void Do()
         {
-            if (stateMachine.state == navigate)
+            var enemy = stateMachineCore as Enemy;
+
+            if (enemy != null && enemy.isAggroed)
             {
-                if (navigate.IsComplete)
-                {
-                    Set(idle, true);
-                    Rb.linearVelocity = new Vector3(0, Rb.linearVelocity.y, 0);
-                }
+                Set(chase,true);
             }
             else
             {
-                if (stateMachine.state.time > duration)
+                if (stateMachine.state == navigate)
                 {
-                    GoToNextDestination();
+                    if (navigate.IsComplete)
+                    {
+                        Set(idle, true);
+                        Rb.linearVelocity = new Vector3(0, Rb.linearVelocity.y, 0);
+                    }
+                }
+                else
+                {
+                    if (stateMachine.state.time > duration)
+                    {
+                        GoToNextDestination();
+                    }
                 }
             }
+
         }
     }
 }

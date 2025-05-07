@@ -12,6 +12,8 @@ namespace Runtime.Enemy
         public EnemyIdleState idleState;
         public EnemyChaseState chaseState;
         public EnemyPatrolState patrolState;
+        public bool isAggroed;
+        public Vector3 _initialPosition;
         
         private void Awake()
         {
@@ -22,6 +24,7 @@ namespace Runtime.Enemy
 
         private void Start()
         {
+            _initialPosition = transform.position;
             SetupInstances();
             StateMachine.Set(patrolState);
         }

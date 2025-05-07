@@ -4,26 +4,29 @@ namespace Runtime.Enemy
 {
     public class EnemyChaseState : State
     {
-        [SerializeField] private AnimationClip anim;
+        public EnemyNavigateState navigate;
+        public EnemyPatrolState patrol;
+        public GameObject player;
         
         public override void Enter()
         {
-            Animator.Play(anim.name);
         }
 
         public override void Exit()
         {
-            base.Exit();
         }
 
         public override void Do()
         {
-            base.Do();
+            
+            navigate.destination = player.transform.position;
+            Set(navigate, true);
         }
 
         protected override void FixedDo()
         {
             base.FixedDo();
         }
+        
     }
 }
