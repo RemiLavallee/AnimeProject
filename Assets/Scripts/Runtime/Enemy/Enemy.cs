@@ -1,3 +1,4 @@
+using Runtime.Enemy.EnemyState;
 using UnityEngine;
 
 namespace Runtime.Enemy
@@ -13,7 +14,8 @@ namespace Runtime.Enemy
         public EnemyChaseState chaseState;
         public EnemyPatrolState patrolState;
         public bool isAggroed;
-        public Vector3 _initialPosition;
+        public bool isMelee;
+        public Vector3 initialPosition;
         
         private void Awake()
         {
@@ -24,7 +26,7 @@ namespace Runtime.Enemy
 
         private void Start()
         {
-            _initialPosition = transform.position;
+            initialPosition = transform.position;
             SetupInstances();
             StateMachine.Set(patrolState);
         }

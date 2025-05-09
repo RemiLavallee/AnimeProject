@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Runtime.Enemy
+namespace Runtime.Enemy.EnemyState
 {
     public class EnemyNavigateState : State
     {
@@ -13,7 +13,7 @@ namespace Runtime.Enemy
 
         public override void Enter()
         {
-            Set(anim, true);
+            IsComplete = false;
         }
 
         public override void Do()
@@ -24,6 +24,7 @@ namespace Runtime.Enemy
             }
             
             FaceToDestination();
+            Set(anim, true);
         }
 
         protected override void FixedDo()

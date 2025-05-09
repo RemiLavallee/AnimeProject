@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Runtime.Enemy
+namespace Runtime.Enemy.EnemyState
 {
     public class StateMachineCore : MonoBehaviour
     {

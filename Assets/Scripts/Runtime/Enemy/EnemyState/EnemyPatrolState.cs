@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Runtime.Enemy
+namespace Runtime.Enemy.EnemyState
 {
     public class EnemyPatrolState : State
     {
@@ -32,31 +32,33 @@ namespace Runtime.Enemy
         
         public override void Do()
         {
-            var enemy = stateMachineCore as Enemy;
-
-            if (enemy != null && enemy.isAggroed)
+            if (stateMachineCore is Enemy enemy && enemy.isAggroed)
             {
                 Set(chase,true);
             }
             else
             {
-                if (stateMachine.state == navigate)
+                PatrolCondition();
+            }
+        }
+
+        private void PatrolCondition()
+        {
+            if (stateMachine.state == navigate)
+            {
+                if (navigate.IsComplete)
                 {
-                    if (navigate.IsComplete)
-                    {
-                        Set(idle, true);
-                        Rb.linearVelocity = new Vector3(0, Rb.linearVelocity.y, 0);
-                    }
-                }
-                else
-                {
-                    if (stateMachine.state.time > duration)
-                    {
-                        GoToNextDestination();
-                    }
+                    Set(idle, true);
+                    Rb.linearVelocity = new Vector3(0, Rb.linearVelocity.y, 0);
                 }
             }
-
+            else
+            {
+                if (stateMachine.state.time > duration)
+                {
+                    GoToNextDestination();
+                }
+            }
         }
     }
 }

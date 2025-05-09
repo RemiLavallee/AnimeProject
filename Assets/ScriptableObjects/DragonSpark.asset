@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DragonSpark
   m_EditorClassIdentifier: 
   currentHealth: 100
-  maxHealth: 0
+  maxHealth: 100
   damage: 20
   moveSpeed: 5
   enemyName: Dragon Spark

@@ -1,4 +1,4 @@
-namespace Runtime.Enemy
+namespace Runtime.Enemy.EnemyState
 {
     public class StateMachine
     {

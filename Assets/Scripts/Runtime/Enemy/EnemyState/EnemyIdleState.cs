@@ -1,10 +1,10 @@
 using UnityEngine;
 
-namespace Runtime.Enemy
+namespace Runtime.Enemy.EnemyState
 {
-    public class EnemyWalkState : State
+    public class EnemyIdleState : State
     {
-        [SerializeField] private AnimationClip anim;
+        public AnimationClip anim;
         
         public override void Enter()
         {
